@@ -35,17 +35,17 @@ public class FileUtils {
         try {
             f=new FileReader(NOTES_PATH+file.getName());
             BufferedReader br=new BufferedReader(f);
-            title=br.readLine().replaceFirst("title=","");
+//            title=br.readLine().replaceFirst("title=","");
             while (br.ready()){
                 String temp=br.readLine();
                 if (!temp.contains("date=")){
                     con.append(temp).append("\n");
-                }else {
-                    date=temp.replaceFirst("date=","");
-                }
+                }//else {
+                   // date=temp.replaceFirst("date=","");
+                //}
             }
-            Note note=new Note(title,con.toString(),date);
-            Notes.add(note);
+//            Note note=new Note(title,con.toString(),date);
+//            Notes.add(note);
             br.close();
             f.close();
         } catch (IOException e) {
@@ -63,8 +63,8 @@ public class FileUtils {
 
             f=new FileWriter(NOTES_PATH+fileName+".txt");
             BufferedWriter bw=new BufferedWriter(f);
-            bw.write(fileName);
-//            bw.write(content);
+//            bw.write(fileName);
+            bw.write(content);
             bw.close();
             f.close();
         } catch (IOException e) {
@@ -116,13 +116,16 @@ public class FileUtils {
         String fileName=null;
         if (loc != -1) {
             fileName=content.substring(0,loc);
+            return fileName;
         }else if (!content.isEmpty()) {
             fileName= content;
+            return fileName;
         }else{
             fileName=System.currentTimeMillis() + "_new file";
+            return fileName;
         }
-        Note note=new Note(fileName,content,new SimpleDateFormat("yyyy.MM.dd").format(Calendar.getInstance().getTime()));
-        return note.toString();
+//        Note note=new Note(fileName,content,new SimpleDateFormat("yyyy.MM.dd").format(Calendar.getInstance().getTime()));
+//        return fileName;
     }
 
 }
